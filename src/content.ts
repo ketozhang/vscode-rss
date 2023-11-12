@@ -1,3 +1,5 @@
+import { Abstract, Summary } from "./content";
+
 export class Entry {
     constructor(
         public id: string,
@@ -43,13 +45,13 @@ export class Storage {
         private title: string,
         private abstracts: Abstract[],
         private ok: boolean = true,
-        private custom_data?: any,
-    ) {}
+        private custom_data?: any
+    ) { }
 
     static fromSummary(feed: string, summary: Summary, get: (link: string) => Abstract) {
         return new Storage(feed, summary.link, summary.title,
-                           summary.catelog.map(get),
-                           summary.ok, summary.custom_data);
+            summary.catelog.map(get),
+            summary.ok, summary.custom_data);
     }
 
     static fromJSON(json: string) {
@@ -59,7 +61,7 @@ export class Storage {
 
     toSummary(set: (id: string, abstract: Abstract) => void): [string, Summary] {
         const summary = new Summary(this.link, this.title, this.abstracts.map(abs => abs.id),
-                                    this.ok, this.custom_data);
+            this.ok, this.custom_data);
         for (const abstract of this.abstracts) {
             set(abstract.id, abstract);
         }

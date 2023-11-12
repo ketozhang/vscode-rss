@@ -13,7 +13,7 @@
         "url": "https://github.com/luyuhuang/vscode-rss.git"
     },
     "engines": {
-        "vscode": "^1.40.0"
+        "vscode": "^1.83.0"
     },
     "categories": [
         "Other"
@@ -495,6 +495,8 @@
         "got": "12.5.3",
         "he": "^1.2.0",
         "iconv-lite": "^0.5.1",
-        "uuid": "^8.0.0"
+        "opml": "^0.5.2",
+        "uuid": "^8.0.0",
+        "xml2js": "^0.6.2"
     }
 }

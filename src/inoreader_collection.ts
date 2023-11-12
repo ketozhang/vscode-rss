@@ -8,7 +8,7 @@ import * as http from 'http';
 import { parse as url_parse } from 'url';
 import { AddressInfo } from 'net';
 import { IncomingMessage, ServerResponse } from 'http';
-import he = require('he');
+import * as he from 'he';
 
 interface Token {
     auth_code: string;

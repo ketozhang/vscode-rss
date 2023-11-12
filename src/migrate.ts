@@ -1,7 +1,8 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { join as pathJoin, isAbsolute } from 'path';
-import { Summary, Entry, Abstract, Storage } from './content';
+import { Summary, Entry, Abstract } from './content';
+import { Storage } from "./content";
 import { writeFile, readDir, checkDir, moveFile, readFile, fileExists, isDirEmpty } from './utils';
 import * as uuid from 'uuid';
 import * as crypto from 'crypto';

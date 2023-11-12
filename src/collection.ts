@@ -1,8 +1,10 @@
 import * as vscode from 'vscode';
 import { join as pathJoin } from 'path';
-import { Summary, Abstract, Storage } from './content';
+import { Summary, Abstract } from './content';
+import { Storage } from "./content";
 import { App } from './app';
 import { checkDir, writeFile, readFile, removeFile, removeDir, readDir } from './utils';
+import { Database } from './database';
 
 export abstract class Collection {
     private summaries: {[url: string]: Summary} = {};
@@ -11,17 +13,18 @@ export abstract class Collection {
 
     constructor(
         protected dir: string,
-        public readonly account: string
-    ) {}
+        public readonly account: string,
+        public database: Database,
+    ) {
+    }
 
     async init() {
-        await checkDir(this.dir);
-        await checkDir(pathJoin(this.dir, 'feeds'));
-        await checkDir(pathJoin(this.dir, 'articles'));
-        const feeds = await readDir(pathJoin(this.dir, 'feeds'));
-        for (const feed of feeds) {
-            const json = await readFile(pathJoin(this.dir, 'feeds', feed));
-            const [url, summary] = Storage.fromJSON(json).toSummary((id, abstract) => {this.abstracts[id] = abstract;});
+        // await checkDir(this.dir);
+        // await checkDir(pathJoin(this.dir, 'feeds'));
+        // await checkDir(pathJoin(this.dir, 'articles'));
+        this.database.init();
+        for (const storage of this.database.storages) {
+            const [url, summary] = storage.toSummary((id, abstract) => {this.abstracts[id] = abstract;});
             this.summaries[url] = summary;
         }
     }
